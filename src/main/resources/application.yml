@@ -1,0 +1,36 @@
+server:
+  port: 6300
+  shutdown: graceful
+
+
+spring:
+  application:
+    name: lck-gateway-service
+  cloud:
+    gateway:
+#      default-filters:
+#        - name: GlobalFilter
+#          args:
+#            baseMessage: Spring Cloud Gateway GlobalFilter
+#            perLogger: true
+#            postLogger: true
+      routes:
+        - id: lck-service
+          uri: http://localhost:17001/
+          predicates:
+            - Path=/lck-service/**
+#          filters:
+#            - CustomFilter
+management:
+  endpoint:
+    web:
+
+
+eureka:
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://localhost:22301/eureka/
+    instance:
+      hostname: ${spring.application.name}:${spring.application.instance_id:${random.value}}}
