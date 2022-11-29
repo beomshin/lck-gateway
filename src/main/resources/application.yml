@@ -8,12 +8,12 @@ spring:
     name: lck-gateway-service
   cloud:
     gateway:
-#      default-filters:
-#        - name: GlobalFilter
-#          args:
-#            baseMessage: Spring Cloud Gateway GlobalFilter
-#            perLogger: true
-#            postLogger: true
+      default-filters:
+        - name: GlobalFilter
+          args:
+            baseMessage: Spring Cloud Gateway GlobalFilter
+            preLogger: true
+            postLogger: true
       routes:
         - id: lck-service
           uri: http://localhost:17001/
