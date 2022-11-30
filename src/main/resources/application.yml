@@ -16,11 +16,12 @@ spring:
             postLogger: true
       routes:
         - id: lck-service
-          uri: http://localhost:17001/
+          uri: http://172.20.0.6:17001/
           predicates:
             - Path=/lck-service/**
 #          filters:
 #            - CustomFilter
+
 management:
   endpoint:
     web:
@@ -31,6 +32,6 @@ eureka:
     fetch-registry: true
     register-with-eureka: true
     service-url:
-      defaultZone: http://localhost:22301/eureka/
+      defaultZone: http://admin:admin@172.20.0.7:22301/eureka/
     instance:
       hostname: ${spring.application.name}:${spring.application.instance_id:${random.value}}}
