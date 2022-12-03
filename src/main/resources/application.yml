@@ -2,25 +2,46 @@ server:
   port: 6300
   shutdown: graceful
 
+#LOG
+logging:
+  level:
+    root: info
+    jdbc.sqlonly: off # SQL문만을 로그로 남기며, PreparedStatement일 경우 관련된 argument 값으로 대체된 SQL문이 보여진다.
+    jdbc.audit: off # ResultSet을 제외한 모든 JDBC 호출 정보를 로그로 남긴다.
+    jdbc.resultset: off # ResultSet을 포함한 모든 JDBC 호출 정보를 로그로 남긴다.
+    jdbc.connection: off #DB 연결, 연결 해제와 관련된 로그를 보여준다
+    http.logging: debug
+    org.springframework.test: warn
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%-5level] [%thread] [%logger{0}:%line] [%X{request_id:-startup}] - %msg%n"
+    file: "%d{yyyy-MM-dd HH:mm:ss} [%-5level] [%thread] [%logger{0}:%line] [%X{request_id:-startup}] - %msg%n"
+  logback:
+    rolling policy:
+      max-history: 365
+      max-file-size: 100MB
 
 spring:
   application:
     name: lck-gateway-service
   cloud:
-    gateway:
-      default-filters:
-        - name: GlobalFilter
-          args:
-            baseMessage: Spring Cloud Gateway GlobalFilter
-            preLogger: true
-            postLogger: true
-      routes:
-        - id: lck-service
-          uri: http://172.20.0.6:17001/
-          predicates:
-            - Path=/lck-service/**
+#    gateway:
+#      default-filters:
+#        - name: GlobalFilter
+#          args:
+#            baseMessage: Spring Cloud Gateway GlobalFilter
+#            preLogger: true
+#            postLogger: true
+#      routes:
+#        - id: lck-user-service
+#          uri: lb://LCK-USER-SERVICE
+#          predicates:
+#            - Path=/lck-user-service/**
 #          filters:
 #            - CustomFilter
+#        - id: lck-trial-service
+#          uri: lb://LCK-TRIAL-SERVICE
+#          predicates:
+#            - Path=/lck-trial-service/**
 
 management:
   endpoint:
@@ -32,6 +53,6 @@ eureka:
     fetch-registry: true
     register-with-eureka: true
     service-url:
-      defaultZone: http://admin:admin@172.20.0.7:22301/eureka/
+      defaultZone: http://admin:admin@localhost:22301/eureka/
     instance:
       hostname: ${spring.application.name}:${spring.application.instance_id:${random.value}}}
