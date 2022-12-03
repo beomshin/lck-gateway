@@ -12,7 +12,8 @@ public class RouteConfig {
     @Bean
     public RouteLocator userRoute(RouteLocatorBuilder builder, LoggingFilter httpLoginFilter) {
         return builder.routes()
-                .route("lck-user-service", p -> p.path("/lck-user-service/**")
+                .route("lck-user-service", p -> p
+                        .path("/lck-user-service/**")
                         .filters(f ->
                                 f.filter(
                                         httpLoginFilter
@@ -34,4 +35,15 @@ public class RouteConfig {
                 .build();
     }
 
+    @Bean
+    public RouteLocator authRoute(RouteLocatorBuilder builder, LoggingFilter httpLoginFilter) {
+        return builder.routes()
+                .route("lck-auth-service", p -> p.path("/lck-auth-service/**")
+                        .filters(f ->
+                                f.filter(
+                                        httpLoginFilter
+                                                .apply(new LoggingFilter.Config("lck-trial-service LoggingFilter", true, true))))
+                        .uri("lb://LCK-AUTH-SERVICE"))
+                .build();
+    }
 }
