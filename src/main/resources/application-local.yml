@@ -1,0 +1,8 @@
+eureka:
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://admin:admin@localhost:22301/eureka/
+    instance:
+      hostname: ${spring.application.name}:${spring.application.instance_id:${random.value}}}

@@ -21,38 +21,7 @@ logging:
       max-file-size: 100MB
 
 spring:
+  profiles:
+    active: local
   application:
     name: lck-gateway-service
-  cloud:
-#    gateway:
-#      default-filters:
-#        - name: GlobalFilter
-#          args:
-#            baseMessage: Spring Cloud Gateway GlobalFilter
-#            preLogger: true
-#            postLogger: true
-#      routes:
-#        - id: lck-user-service
-#          uri: lb://LCK-USER-SERVICE
-#          predicates:
-#            - Path=/lck-user-service/**
-#          filters:
-#            - CustomFilter
-#        - id: lck-trial-service
-#          uri: lb://LCK-TRIAL-SERVICE
-#          predicates:
-#            - Path=/lck-trial-service/**
-
-management:
-  endpoint:
-    web:
-
-
-eureka:
-  client:
-    fetch-registry: true
-    register-with-eureka: true
-    service-url:
-      defaultZone: http://admin:admin@localhost:22301/eureka/
-    instance:
-      hostname: ${spring.application.name}:${spring.application.instance_id:${random.value}}}
