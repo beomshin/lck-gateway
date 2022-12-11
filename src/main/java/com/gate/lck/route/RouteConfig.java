@@ -10,20 +10,6 @@ import org.springframework.context.annotation.Configuration;
 public class RouteConfig {
 
     @Bean
-    public RouteLocator userRoute(RouteLocatorBuilder builder, LoggingFilter httpLoginFilter) {
-        return builder.routes()
-                .route("lck-user-service", p -> p
-                        .path("/lck-user-service/**")
-                        .filters(f ->
-                                f.filter(
-                                        httpLoginFilter
-                                                .apply(new LoggingFilter.Config("lck-user-serviceLoggingFilter", true, true))))
-                        .uri("lb://LCK-USER-SERVICE"))
-                .build();
-    }
-
-
-    @Bean
     public RouteLocator trialRoute(RouteLocatorBuilder builder, LoggingFilter httpLoginFilter) {
         return builder.routes()
                 .route("lck-trial-service", p -> p.path("/lck-trial-service/**")

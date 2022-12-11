@@ -6,3 +6,8 @@ eureka:
       defaultZone: http://admin:admin@localhost:22301/eureka/
     instance:
       hostname: ${spring.application.name}:${spring.application.instance_id:${random.value}}}
+
+token:
+  access-expired-time: 3600
+  refresh-expired-time: 86400
+  key: YKXHN4T8GAK4EE6DXQTYQ2ZO2A33IIJK
